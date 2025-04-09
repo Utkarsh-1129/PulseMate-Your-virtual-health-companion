@@ -1,0 +1,42 @@
+Metadata-Version: 2.1
+Name: langchain-pinecone
+Version: 0.2.5
+Summary: An integration package connecting Pinecone and LangChain
+License: MIT
+Project-URL: Source Code, https://github.com/langchain-ai/langchain-pinecone/tree/main/libs/pinecone
+Project-URL: Release Notes, https://github.com/langchain-ai/langchain/releases?q=tag%3A%22langchain-pinecone%3D%3D0%22&expanded=true
+Project-URL: repository, https://github.com/langchain-ai/langchain-pinecone
+Requires-Python: <3.14,>=3.9
+Requires-Dist: langchain-core<1.0.0,>=0.3.34
+Requires-Dist: pinecone[async]<7.0.0,>=6.0.0
+Requires-Dist: aiohttp<3.11,>=3.10
+Requires-Dist: numpy>=1.26.4
+Requires-Dist: langchain-tests<1.0.0,>=0.3.7
+Description-Content-Type: text/markdown
+
+# langchain-pinecone
+
+This package contains the LangChain integration with Pinecone.
+
+## Installation
+
+```bash
+pip install -U langchain-pinecone
+```
+
+And you should configure credentials by setting the following environment variables:
+
+- `PINECONE_API_KEY`
+- `PINECONE_INDEX_NAME`
+
+## Usage
+
+The `PineconeVectorStore` class exposes the connection to the Pinecone vector store.
+
+```python
+from langchain_pinecone import PineconeVectorStore
+
+embeddings = ... # use a LangChain Embeddings class
+
+vectorstore = PineconeVectorStore(embeddings=embeddings)
+```

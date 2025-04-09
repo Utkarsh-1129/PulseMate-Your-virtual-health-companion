@@ -1,0 +1,78 @@
+Metadata-Version: 2.3
+Name: pinecone-client
+Version: 6.0.0
+Summary: Pinecone client (DEPRECATED)
+License: Apache-2.0
+Keywords: Pinecone,vector,database,cloud
+Author: Pinecone Systems, Inc.
+Author-email: support@pinecone.io
+Requires-Python: >=3.9,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Database
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Provides-Extra: asyncio
+Provides-Extra: grpc
+Requires-Dist: aiohttp (>=3.9.0) ; extra == "asyncio"
+Requires-Dist: certifi (>=2019.11.17)
+Requires-Dist: googleapis-common-protos (>=1.66.0) ; extra == "grpc"
+Requires-Dist: grpcio (>=1.44.0) ; (python_version >= "3.8" and python_version < "3.11") and (extra == "grpc")
+Requires-Dist: grpcio (>=1.59.0) ; (python_version >= "3.11" and python_version < "4.0") and (extra == "grpc")
+Requires-Dist: grpcio (>=1.68.0) ; (python_version >= "3.13" and python_version < "4.0") and (extra == "grpc")
+Requires-Dist: lz4 (>=3.1.3) ; extra == "grpc"
+Requires-Dist: pinecone-plugin-interface (>=0.0.7,<0.0.8)
+Requires-Dist: protobuf (>=5.29,<6.0) ; extra == "grpc"
+Requires-Dist: protoc-gen-openapiv2 (>=0.0.1,<0.0.2) ; extra == "grpc"
+Requires-Dist: python-dateutil (>=2.5.3)
+Requires-Dist: typing-extensions (>=3.7.4)
+Requires-Dist: urllib3 (>=1.26.0) ; python_version >= "3.8" and python_version < "3.12"
+Requires-Dist: urllib3 (>=1.26.5) ; python_version >= "3.12" and python_version < "4.0"
+Project-URL: Documentation, https://pinecone.io/docs
+Project-URL: Homepage, https://www.pinecone.io
+Description-Content-Type: text/markdown
+
+# Pinecone Python Client (DEPRECATED)
+
+The official Pinecone python package has been renamed from `pinecone-client` to `pinecone`. To upgrade, please
+**remove** `pinecone-client` from your project dependencies and then **add** the `pinecone` package to get the
+latest updates.
+
+
+**WARNING:** Failure to remove `pinecone-client` before installing `pinecone` can lead to confusing interactions
+between the two packages.
+
+## Upgrade steps
+
+```sh
+pip uninstall pinecone-client
+pip install pinecone
+```
+
+Or, if you are using grpc:
+
+```sh
+pip uninstall pinecone-client
+pip install "pinecone[grpc]"
+```
+
+For info on code changes that may impact you, see [Release Notes](https://github.com/pinecone-io/pinecone-python-client/releases) and [Upgrading](https://github.com/pinecone-io/pinecone-python-client/blob/main/docs/upgrading.md)
+
+## Links
+
+- `pinecone` on [PyPI](https://pypi.org/project/pinecone/)
+- [Source on Github](https://github.com/pinecone-io/pinecone-python-client)
+
