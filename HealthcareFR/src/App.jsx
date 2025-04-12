@@ -1,21 +1,15 @@
+// C:\CaryonD\HealthcareFR\src\App.jsx
 import React from 'react';
 import ChatBox from './components/ChatBox';
-import Header from './components/Header.jsx';
-import Footer from './components/Footer';
 import './styles/App.css';
 
 function App() {
   return (
-    
-    <div className="app">
-        <div>
-        
+      <div className="app">
         <main className="main-content">
           <ChatBox />
         </main>
-      
       </div>
-    </div>
   );
 }
 

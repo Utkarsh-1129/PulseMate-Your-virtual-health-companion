@@ -1,3 +1,5 @@
+/* C:\CaryonD\HealthcareFR\src\styles\ChatBox.css */
+
 /* Center the app */
 body {
   margin: 0;
@@ -47,9 +49,17 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Messages wrapper - controls the scrollable area */
+.chat-messages-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background-color: #f8fafc;
+}
+
 /* Scrollable Messages */
 .chat-messages {
-  flex: 1;
+  height: 100%;
   padding: 20px;
   overflow-y: auto;
   display: flex;
@@ -59,36 +69,52 @@ body {
 
 /* Scrollbar Styling */
 .chat-messages::-webkit-scrollbar {
-  width: 1px;
- 
+  width: 6px;
 }
+
+.chat-messages::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
 .chat-messages::-webkit-scrollbar-thumb {
   background-color: #3e8696;
   border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background-color: #2c6270;
+}
+
+/* For scroll reference div */
+.messages-end-ref {
+  height: 1px;
+  width: 100%;
 }
 
 /* Individual Message Styling */
 .message {
   margin-bottom: 16px;
   display: flex;
+  max-width: 90%;
 }
 
 .user-message {
+  margin-left: auto;
   justify-content: flex-end;
 }
 
 .bot-message {
+  margin-right: auto;
   justify-content: flex-start;
 }
 
 .message-content {
-  max-width: 90%;
   padding: 12px 18px;
-  border-radius: 25px;
-  box-shadow: 0 1px 2px rgba(34, 138, 10, 0.05);
+  border-radius: 18px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   font-size: 14px;
   line-height: 1.5;
-
   animation: popIn 0.3s ease-out;
 }
 
@@ -121,12 +147,18 @@ body {
   color: #999;
 }
 
+/* Chat input wrapper */
+.chat-input-wrapper {
+  border-top: 1px solid #eaeaea;
+  background-color: #fafafa;
+  padding: 16px;
+}
+
 /* Chat Input Form */
 .chat-input-form {
   display: flex;
-  padding: 16px;
-  border-top: 1px solid #eaeaea;
-  background-color: #fafafa;
+  align-items: center;
+  gap: 8px;
 }
 
 .chat-input {
@@ -141,17 +173,24 @@ body {
 
 .chat-input:focus {
   border-color: #0975ab;
+  box-shadow: 0 0 0 2px rgba(9, 117, 171, 0.1);
+}
+
+/* Button container */
+.chat-buttons {
+  display: flex;
+  gap: 8px;
 }
 
 /* Buttons */
 .send-button, .clear-button {
-  margin-left: 8px;
   padding: 0 16px;
+  height: 42px;
   border: none;
   border-radius: 24px;
   font-weight: bold;
-  cursor:cell;
-  background-color: #000000;
+  cursor: pointer;
+  background-color: #3e8696;
   color: white;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
@@ -161,20 +200,43 @@ body {
 }
 
 .send-button:hover {
-  background-color: #3e8696;
-  color:#000000;
-  transform: scale(1.05);
+  background-color: #2c6270;
+  transform: translateY(-1px);
 }
 
 .clear-button:hover {
   background-color: #d32f2f;
-  transform: scale(1.05);
+  transform: translateY(-1px);
 }
 
-/* Responsive */
+.send-button:active, .clear-button:active {
+  transform: translateY(1px);
+}
+
+/* Loading message container */
+.loading-message {
+  align-self: flex-start;
+  margin-bottom: 16px;
+}
+
+/* Responsive layout */
 @media (max-width: 768px) {
   .chat-container {
     height: 90vh;
     max-width: 100%;
+  }
+  
+  .chat-input-wrapper {
+    padding: 12px;
+  }
+  
+  .chat-buttons {
+    flex-direction: column;
+  }
+  
+  .send-button, .clear-button {
+    padding: 0 12px;
+    height: 38px;
+    font-size: 13px;
   }
 }
