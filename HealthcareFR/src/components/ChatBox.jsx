@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react/';
+import React, { useState, useRef, useEffect } from 'react';
 import Message from './Message.jsx';
 import LoadingIndicator from './LoadingIndicator.jsx';
 import Header from './Header.jsx';
