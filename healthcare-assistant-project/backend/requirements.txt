@@ -9,3 +9,4 @@ langchain-pinecone==0.0.2
 requests==2.31.0
 pydantic==2.6.3
 python-multipart==0.0.6
+langchain-google-genai
