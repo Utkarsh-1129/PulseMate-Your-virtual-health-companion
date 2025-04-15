@@ -10,10 +10,10 @@ app = FastAPI(title="Health Assistant API")
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://pulsemate-ai.vercel.app"],  # In production, replace with specific origins
+    allow_origins=["*"],  # Allows all origins
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
 )
 
 # Include routers
