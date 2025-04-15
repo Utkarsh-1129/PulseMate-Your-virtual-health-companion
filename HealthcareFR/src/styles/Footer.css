@@ -1,8 +1,36 @@
+/* Footer.css - Updated styling for the Health Assistant chatbot footer */
+
 .chat-footer {
-    background-color: #f1f1f1;
-    text-align: center;
-    padding: 10px;
-    font-size: 0.9rem;
-    color: #555;
+  padding: 14px;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-align: center;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.chat-footer p {
+  margin: 0;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Subtle hover effect */
+.chat-footer:hover {
+  background-color: #f5f7fa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chat-footer {
+    padding: 12px;
+    font-size: 0.8rem;
   }
-  
+}

@@ -1,6 +1,6 @@
 // C:\CaryonD\HealthcareFR\src\App.jsx
 import React from 'react';
-import ChatBox from './components/ChatBox';
+import ChatBox from './components/ChatBox.jsx';
 import './styles/App.css';
 
 function App() {

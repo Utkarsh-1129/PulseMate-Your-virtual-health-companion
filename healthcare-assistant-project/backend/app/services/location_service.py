@@ -1,4 +1,6 @@
 # backend/app/services/location_service.py
+# location_service----
+
 import requests
 import os
 from dotenv import load_dotenv
@@ -8,7 +10,7 @@ load_dotenv()
 
 def find_nearby_facilities(latitude, longitude, facility_type="healthcare", radius=5000):
     """
-    Find nearby healthcare facilities using OpenStreetMap.
+    Find nearby healthcare facilities using OpenStreetMap via the Overpass API.
     
     Args:
         latitude (float): User's latitude
@@ -20,26 +22,44 @@ def find_nearby_facilities(latitude, longitude, facility_type="healthcare", radi
         str: Formatted string with nearby facilities
     """
     try:
-        # Use Overpass API to query OpenStreetMap
         overpass_url = "https://overpass-api.de/api/interpreter"
         
-        # Build query for healthcare facilities
+        # Define Overpass query templates
         query_map = {
-            "healthcare": "amenity=hospital or amenity=clinic or amenity=doctors or healthcare=*",
-            "pharmacy": "amenity=pharmacy",
-            "hospital": "amenity=hospital"
+            "healthcare": """
+                node["amenity"="hospital"](around:{radius},{lat},{lon});
+                node["amenity"="clinic"](around:{radius},{lat},{lon});
+                node["amenity"="doctors"](around:{radius},{lat},{lon});
+                node["healthcare"](around:{radius},{lat},{lon});
+                way["amenity"="hospital"](around:{radius},{lat},{lon});
+                way["amenity"="clinic"](around:{radius},{lat},{lon});
+                way["amenity"="doctors"](around:{radius},{lat},{lon});
+                way["healthcare"](around:{radius},{lat},{lon});
+                relation["amenity"="hospital"](around:{radius},{lat},{lon});
+                relation["amenity"="clinic"](around:{radius},{lat},{lon});
+                relation["amenity"="doctors"](around:{radius},{lat},{lon});
+                relation["healthcare"](around:{radius},{lat},{lon});
+            """,
+            "pharmacy": """
+                node["amenity"="pharmacy"](around:{radius},{lat},{lon});
+                way["amenity"="pharmacy"](around:{radius},{lat},{lon});
+                relation["amenity"="pharmacy"](around:{radius},{lat},{lon});
+            """,
+            "hospital": """
+                node["amenity"="hospital"](around:{radius},{lat},{lon});
+                way["amenity"="hospital"](around:{radius},{lat},{lon});
+                relation["amenity"="hospital"](around:{radius},{lat},{lon});
+            """
         }
         
-        # Use the appropriate query based on facility type
+        # Use the appropriate query or fallback to "healthcare"
         query_filter = query_map.get(facility_type.lower(), query_map["healthcare"])
         
-        # Create the Overpass query
+        # Build the full Overpass query
         query = f"""
         [out:json];
         (
-          node[{query_filter}](around:{radius},{latitude},{longitude});
-          way[{query_filter}](around:{radius},{latitude},{longitude});
-          relation[{query_filter}](around:{radius},{latitude},{longitude});
+            {query_filter.format(radius=radius, lat=latitude, lon=longitude)}
         );
         out center;
         """
@@ -50,15 +70,15 @@ def find_nearby_facilities(latitude, longitude, facility_type="healthcare", radi
         if response.status_code == 200:
             data = response.json()
             
-            # Process the results
             if "elements" in data and data["elements"]:
                 facilities = []
                 
-                for element in data["elements"][:5]:  # Limit to 5 results
-                    name = element.get("tags", {}).get("name", "Unnamed facility")
-                    facility_type = element.get("tags", {}).get("amenity", "healthcare")
+                for element in data["elements"][:5]:  # Limit to top 5 results
+                    tags = element.get("tags", {})
+                    name = tags.get("name", "Unnamed facility")
+                    facility_kind = tags.get("amenity") or tags.get("healthcare", "unknown")
                     
-                    # Get coordinates - different for nodes vs ways/relations
+                    # Coordinates differ by element type
                     if element["type"] == "node":
                         lat = element.get("lat")
                         lon = element.get("lon")
@@ -70,20 +90,16 @@ def find_nearby_facilities(latitude, longitude, facility_type="healthcare", radi
                     if name and lat and lon:
                         facilities.append({
                             "name": name,
-                            "type": facility_type,
+                            "type": facility_kind,
                             "latitude": lat,
                             "longitude": lon
                         })
                 
                 if facilities:
-                    # Format the facilities into a readable string
                     result = "I found these healthcare facilities near you:\n\n"
-                    
                     for i, facility in enumerate(facilities):
                         result += f"{i+1}. {facility['name']} ({facility['type']})\n"
-                        # Google Maps URL
-                        result += f"   Location: https://www.google.com/maps?q={facility['latitude']},{facility['longitude']}\n\n"
-                    
+                        result += f"   📍 Location: https://www.google.com/maps?q={facility['latitude']},{facility['longitude']}\n\n"
                     return result
             
             return "I couldn't find any healthcare facilities in that area."

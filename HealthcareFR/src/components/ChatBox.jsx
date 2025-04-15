@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Message from './Message';
-import LoadingIndicator from './LoadingIndicator';
-import Header from './Header';
-import Footer from './Footer';
-import { sendMessage } from '../services/api';
+import React, { useState, useRef, useEffect } from 'react/';
+import Message from './Message.jsx';
+import LoadingIndicator from './LoadingIndicator.jsx';
+import Header from './Header.jsx';
+import Footer from './Footer.jsx';
+import { sendMessage } from '../services/api.jsx';
 import '../styles/ChatBox.css';
 
 const ChatBox = () => {

@@ -1,11 +1,57 @@
-.chat-header {
-  background-color: #2f8d94;
-  color: white;
-  padding: 16px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+/* Header.css - Updated styling for the PulseMate chatbot header */
 
+.chat-header {
+  padding: 18px 24px;
+  background: linear-gradient(to right, #2a7db3, #1a9cb0);
+  color: white;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.chat-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  animation: fadeSlideDown 0.7s ease-out;
+}
+
+.chat-header p {
+  margin: 6px 0 0 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  opacity: 0.9;
+  animation: fadeSlideDown 0.7s ease-out 0.1s both;
+}
+
+@keyframes fadeSlideDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-8px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chat-header {
+    padding: 16px 18px;
+  }
+  
+  .chat-header h1 {
+    font-size: 1.3rem;
+  }
+  
+  .chat-header p {
+    font-size: 0.8rem;
+  }
 }
