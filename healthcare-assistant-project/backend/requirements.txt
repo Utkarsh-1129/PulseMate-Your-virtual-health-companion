@@ -10,10 +10,3 @@ requests==2.31.0
 pydantic==2.6.3
 python-multipart==0.0.6
 langchain-google-genai
-pip install -r requirements.txt && pip install --force-reinstall langchain-pinecone==0.0.1
-.\venv\Scripts\activate
-pip install fastapi uvicorn
-pip install langchain==0.1.9
-pip install langchain-pinecone==0.1.0
-pip install langchain-google-genai==0.0.5
-pip install langchain-community==0.0.21
