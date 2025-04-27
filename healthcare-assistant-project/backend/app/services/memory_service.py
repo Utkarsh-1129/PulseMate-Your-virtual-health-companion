@@ -1,6 +1,6 @@
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_pinecone import PineconeVectorStore
-from pinecone import Pinecone, ServerlessSpec
+from langchain_pinecone import Pinecone  # Updated import
+from pinecone import Pinecone as PineconeClient, ServerlessSpec
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
@@ -33,7 +33,7 @@ genai.configure(api_key=gemini_api_key)
 os.environ["GOOGLE_API_KEY"] = gemini_api_key
 
 # Initialize Pinecone
-pc = Pinecone(api_key=pinecone_api_key)
+pc = PineconeClient(api_key=pinecone_api_key)
 
 # Ensure index exists
 indexes = pc.list_indexes()
@@ -56,13 +56,14 @@ else:
 # Initialize Embeddings
 embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=gemini_api_key)
 
-# Connect to VectorStore
-vectorstore = PineconeVectorStore.from_existing_index(
+# Connect to VectorStore - Updated to use the new API
+vectorstore = Pinecone.from_existing_index(
     index_name=pinecone_index_name,
     embedding=embeddings
 )
 
 print("✅ Pinecone + Gemini setup is complete.")
+
 
 def extract_health_info(text):
     """
