@@ -7,10 +7,14 @@ import uvicorn
 
 app = FastAPI(title="Health Assistant API")
 
-# Configure CORS
+# Configure CORS with specific origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=[
+        "https://pulsemate-ai.vercel.app",  # Your Vercel frontend URL
+        "http://localhost:3000",  # For local development
+        "http://localhost:5173"   # For Vite local development
+    ],
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
@@ -35,8 +39,5 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
-# if __name__ == "__main__":
-#     uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=False)
-    
