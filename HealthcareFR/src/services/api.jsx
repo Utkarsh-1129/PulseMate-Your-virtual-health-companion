@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Use import.meta.env for Vite
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://pulsemate-your-virtual-health-companion.onrender.com',
+  baseURL: import.meta.env.VITE_API_URL || "https://pulsemate-your-virtual-health-companion-1.onrender.com" || 'https://pulsemate-your-virtual-health-companion.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   }
